@@ -1,0 +1,6 @@
+/home/atreju/goprogtk/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/atreju/goprogtk/obj/x86/Debug/goprogtk.gtk-gui.gui.stetic
+/home/atreju/goprogtk/bin/Debug/goprogtk.exe.mdb
+/home/atreju/goprogtk/bin/Debug/goprogtk.exe
+/home/atreju/goprogtk/obj/x86/Debug/goprogtk.exe
+/home/atreju/goprogtk/obj/x86/Debug/goprogtk.exe.mdb
