@@ -4,13 +4,60 @@ namespace goprogtk
 {
 	public partial class SettingsWindow
 	{
+		private global::Gtk.Notebook notebook1;
+		
+		private global::Gtk.Table table1;
+		
+		private global::Gtk.Label label2;
+		
+		private global::Gtk.Label label3;
+		
+		private global::Gtk.Label label4;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget goprogtk.SettingsWindow
 			this.Name = "goprogtk.SettingsWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("SettingsWindow");
+			this.Title = global::Mono.Unix.Catalog.GetString ("Inställningar");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
+			this.BorderWidth = ((uint)(6));
+			// Container child goprogtk.SettingsWindow.Gtk.Container+ContainerChild
+			this.notebook1 = new global::Gtk.Notebook ();
+			this.notebook1.CanFocus = true;
+			this.notebook1.Name = "notebook1";
+			this.notebook1.CurrentPage = 0;
+			// Container child notebook1.Gtk.Notebook+NotebookChild
+			this.table1 = new global::Gtk.Table (((uint)(6)), ((uint)(2)), false);
+			this.table1.Name = "table1";
+			this.table1.RowSpacing = ((uint)(6));
+			this.table1.ColumnSpacing = ((uint)(6));
+			this.notebook1.Add (this.table1);
+			// Notebook tab
+			this.label2 = new global::Gtk.Label ();
+			this.label2.Name = "label2";
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Stillbilder");
+			this.notebook1.SetTabLabel (this.table1, this.label2);
+			this.label2.ShowAll ();
+			// Notebook tab
+			global::Gtk.Label w2 = new global::Gtk.Label ();
+			w2.Visible = true;
+			this.notebook1.Add (w2);
+			this.label3 = new global::Gtk.Label ();
+			this.label3.Name = "label3";
+			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString ("Video");
+			this.notebook1.SetTabLabel (w2, this.label3);
+			this.label3.ShowAll ();
+			// Notebook tab
+			global::Gtk.Label w3 = new global::Gtk.Label ();
+			w3.Visible = true;
+			this.notebook1.Add (w3);
+			this.label4 = new global::Gtk.Label ();
+			this.label4.Name = "label4";
+			this.label4.LabelProp = global::Mono.Unix.Catalog.GetString ("Annat");
+			this.notebook1.SetTabLabel (w3, this.label4);
+			this.label4.ShowAll ();
+			this.Add (this.notebook1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-
+namespace goprogtk{
 public partial class MainWindow: Gtk.Window
 {
 	string lastfilename="nope";
@@ -29,18 +29,15 @@ public partial class MainWindow: Gtk.Window
 		t.StartNew (() => {
 			label1.Text = "Förbereder Kameran...";
 			progressbar1.Fraction = 0;
-			WebRequest req = HttpWebRequest.Create ("http://10.5.5.9/gp/gpControl/command/mode?p=1");
-			req.Method = "GET";
-			req.GetResponse ();
-			req.GetResponse ().Close ();
+
+			GoPro.ExecuteURL("gpControl/command/mode?p=1");
 
 			label1.Text = "Tar bild...";
 			System.Threading.Thread.Sleep (100);
 			progressbar1.Fraction = 0.1;
-			req = HttpWebRequest.Create ("http://10.5.5.9/gp/gpControl/command/shutter?p=1");
-			req.Method = "GET";
-			req.GetResponse ();
-			req.GetResponse ().Close ();
+
+			GoPro.ExecuteURL("gpControl/command/shutter?p=1");
+
 			System.Threading.Thread.Sleep (300);
 			progressbar1.Fraction = 0.3;
 			System.Threading.Thread.Sleep (300);
@@ -48,7 +45,8 @@ public partial class MainWindow: Gtk.Window
 			label1.Text = "Sparar bilden...";
 			System.Threading.Thread.Sleep (400);
 			progressbar1.Fraction = 0.8;
-			req = HttpWebRequest.Create ("http://10.5.5.9:8080/gp/gpMediaList");
+
+			WebRequest req = HttpWebRequest.Create ("http://10.5.5.9:8080/gp/gpMediaList");
 			req.Method = "GET";
 			WebResponse filelist = req.GetResponse ();
 			System.IO.StreamReader sr = new System.IO.StreamReader (filelist.GetResponseStream ());
@@ -79,18 +77,15 @@ public partial class MainWindow: Gtk.Window
 
 	protected void stopstream(object sender, EventArgs e){
 		keepalive.Stop();
-		WebRequest req = HttpWebRequest.Create("http://10.5.5.9/gp/gpControl/execute?p1=gpStream&c1=stop");
-		req.Method = "GET";
-		req.GetResponse ();
-		req.GetResponse ().Close();
+		GoPro.ExecuteURL ("gpControl/execute?p1=gpStream&c1=stop");
 	}
 
 	protected void streamclick (object sender, EventArgs e)
 	{
-		WebRequest req = HttpWebRequest.Create("http://10.5.5.9/gp/gpControl/execute?p1=gpStream&c1=restart");
-		req.Method = "GET";
-		req.GetResponse ();
-		req.GetResponse ().Close();
+		label1.Text =("Sätter upp lajvström..");
+
+		GoPro.ExecuteURL ("gpControl/execute?p1=gpStream&c1=restart");
+
 		keepalive.Elapsed += Keepalive_Elapsed;
 
 		Process p = new Process ();
@@ -117,7 +112,9 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnButton8Clicked (object sender, EventArgs e)
 	{
-		System.IO.File.Copy ("lastimg.jpg", lastfilename);
+			if (System.IO.File.Exists ("lastimg.jpg")) {
+				System.IO.File.Copy ("lastimg.jpg", lastfilename);
+			}
 	}
 
 	protected void OnButton1Clicked (object sender, EventArgs e)
@@ -125,4 +122,10 @@ public partial class MainWindow: Gtk.Window
 		Window settings = new goprogtk.SettingsWindow ();
 		settings.Show ();
 	}
+
+		protected void OnButton2Clicked (object sender, EventArgs e)
+		{
+			var state = GoPro.getState ();
+		}
+}
 }
